@@ -17,7 +17,7 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogError($"Only single instance of UnitActionSystem can exist at a time. ({transform} - {Instance})");
+            Debug.LogError($"Only a single instance of UnitActionSystem can exist at a time. ({transform} - {Instance})");
             Destroy(gameObject);
             return;
         }
