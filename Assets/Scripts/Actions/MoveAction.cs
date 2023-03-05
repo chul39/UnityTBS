@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : MonoBehaviour
+public class MoveAction : BaseAction
 {
     [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private float rotateSpeed = 10f;
@@ -10,17 +11,18 @@ public class MoveAction : MonoBehaviour
     [SerializeField] private Animator unitAnimator;
 
     private Vector3 targetPosition;
-    private Unit unit;
 
-    private void Awake()
+    protected override void Awake()
     {
-        unit = GetComponent<Unit>();
+        base.Awake();
         targetPosition = transform.position;
     }
 
     private void Update()
     {
-        // Unit movement
+        if (!isActive) return;
+
+        // Movement
         float stoppingDistance = .1f;
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance) 
         {
@@ -32,12 +34,16 @@ public class MoveAction : MonoBehaviour
         else 
         {
             unitAnimator.SetBool("IsWalking", false);
+            isActive = false;
+            onActionComplete();
         }
     }
 
-    public void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition, Action onActionComplete)
     {
+        this.onActionComplete = onActionComplete;
         this.targetPosition = targetPosition;
+        isActive = true;
     }
 
     public bool IsValidActionGridPosition(GridPosition gridPosition)
