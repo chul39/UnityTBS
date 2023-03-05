@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GridSystemTest : MonoBehaviour
 {
-    [SerializeField] private Transform gridDebugObjectPrefab;
+    [SerializeField] private Unit unit;
 
     private GridSystem gridSystem;
 
@@ -16,6 +16,12 @@ public class GridSystemTest : MonoBehaviour
 
     private void Update()
     {
-        // Debug.Log(gridSystem.GetGridPosition(MouseWorld.GetPosition()));
+        /*
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            GridSystemVisual.Instance.HideAllGridPosition();
+            GridSystemVisual.Instance.ShowGridPositionList(unit.GetMoveAction().GetValidActionGridPositionList());
+        }
+        */
     }
 }
